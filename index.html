@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Graphic Design</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #0d0d0d;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(13, 13, 13, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.9rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.6;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-menu-btn span {
+            width: 25px;
+            height: 2px;
+            background: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        /* Pages Container */
+        .page {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* About Section */
+        .about-section {
+            margin-top: 100px;
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 4rem;
+            align-items: start;
+            margin-bottom: 5rem;
+        }
+
+        .about-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .about-text h2 {
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.5px;
+            color: #ffffff;
+        }
+
+        .about-text p {
+            font-size: 1rem;
+            color: #a0a0a0;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        /* Areas Section */
+        .areas-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem 6rem;
+        }
+
+        .areas-title {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .carousel-container {
+            position: relative;
+            padding: 0 60px;
+        }
+
+        .areas-carousel {
+            overflow: hidden;
+        }
+
+        .areas-track {
+            display: flex;
+            gap: 2rem;
+            transition: transform 0.5s ease;
+        }
+
+        .area-card {
+            min-width: calc(33.333% - 1.34rem);
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            padding: 2rem;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .area-card:hover {
+            background: #222222;
+            border-color: #3a3a3a;
+        }
+
+        .area-card h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 0.8rem;
+            color: #ffffff;
+        }
+
+        .area-card p {
+            font-size: 0.9rem;
+            color: #a0a0a0;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #ffffff;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .carousel-btn:hover {
+            background: #222222;
+            border-color: #3a3a3a;
+        }
+
+        .carousel-btn.prev {
+            left: 0;
+        }
+
+        .carousel-btn.next {
+            right: 0;
+        }
+
+        /* Work Section */
+        .work-section {
+            margin-top: 100px;
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .work-title {
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+            background: #0d0d0d;
+        }
+
+        .project-card:hover {
+            opacity: 0.7;
+        }
+
+        .project-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .project-info {
+            padding: 0.5rem 0;
+        }
+
+        .project-title {
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+        }
+
+        .project-year {
+            font-size: 0.85rem;
+            color: #808080;
+            font-weight: 300;
+        }
+
+        /* Project Detail Page */
+        .project-detail {
+            margin-top: 100px;
+            padding: 4rem 2rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: none;
+            border: none;
+            font-size: 0.9rem;
+            color: #ffffff;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            padding: 0.5rem 0;
+            font-family: inherit;
+            transition: opacity 0.3s ease;
+        }
+
+        .back-btn:hover {
+            opacity: 0.6;
+        }
+
+        .project-detail-header {
+            margin-bottom: 3rem;
+        }
+
+        .project-detail-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+            color: #ffed00;
+            text-transform: uppercase;
+        }
+
+        .project-detail-subtitle {
+            font-size: 1.2rem;
+            color: #a0a0a0;
+            margin-bottom: 0.5rem;
+            font-weight: 300;
+        }
+
+        .project-detail-year {
+            font-size: 1rem;
+            color: #808080;
+        }
+
+        .project-detail-images {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* Full width image sections */
+        .image-section-full {
+            width: 100%;
+        }
+
+        .image-section-full img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Grid sections (like your collages reference) */
+        .image-section-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .image-section-grid img {
+         width: 100%;
+         height: auto;
+         display: block;
+        }
+
+        /* Two column grid */
+        .image-section-two-col {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .image-section-two-col img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Three column grid */
+        .image-section-three-col {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .image-section-three-col img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            display: block;
+        }
+        .image-section-ig {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .image-section-ig img {
+         width: 100%;
+         height: auto;
+         display: block;
+        }
+        .image-section-three-col video {
+         width: 100%;
+         aspect-ratio: 9 / 16; /* igual que las imágenes */
+         object-fit: cover;
+         display: block;
+        }
+        /* Contact Section */
+        .contact-section {
+            padding: 6rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-title {
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+        }
+
+        .contact-description {
+            font-size: 1rem;
+            color: #a0a0a0;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-item {
+            font-size: 1rem;
+            color: #ffffff;
+        }
+
+        .contact-item a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            opacity: 0.6;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: #ffffff;
+            transition: opacity 0.3s ease;
+        }
+
+        .social-link:hover {
+            opacity: 0.6;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #2a2a2a;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            background: #1a1a1a;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover .social-icon {
+            background: #222222;
+            border-color: #3a3a3a;
+        }
+
+        .social-name {
+            font-size: 0.85rem;
+            font-weight: 400;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a1a1a;
+            border-top: 1px solid #2a2a2a;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .footer p {
+            color: #808080;
+            font-size: 0.85rem;
+            font-weight: 300;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: #0d0d0d;
+                flex-direction: column;
+                padding: 6rem 2rem 2rem;
+                gap: 2rem;
+                transition: right 0.4s ease;
+                border-left: 1px solid #2a2a2a;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .mobile-menu-btn.active span:nth-child(1) {
+                transform: rotate(45deg) translate(7px, 7px);
+            }
+
+            .mobile-menu-btn.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .mobile-menu-btn.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -7px);
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .area-card {
+                min-width: calc(100% - 2rem);
+            }
+
+            .carousel-container {
+                padding: 0 50px;
+            }
+
+            .work-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .social-links {
+                gap: 1.5rem;
+            }
+
+            .image-section-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            .image-section-three-col {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .image-section-grid img,
+            .image-section-three-col img {
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .nav-container {
+                padding: 1rem 1.5rem;
+            }
+
+            .about-section {
+                margin-top: 80px;
+                padding: 2rem 1.5rem;
+            }
+
+            .about-text h2 {
+                font-size: 1.8rem;
+            }
+
+            .areas-section {
+                padding: 2rem 1.5rem 4rem;
+            }
+
+            .carousel-container {
+                padding: 0 40px;
+            }
+
+            .carousel-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+
+            .work-section {
+                margin-top: 80px;
+                padding: 2rem 1.5rem;
+            }
+
+            .work-title {
+                font-size: 1.8rem;
+            }
+
+            .project-detail {
+                margin-top: 80px;
+                padding: 2rem 1.5rem;
+            }
+
+            .project-detail-title {
+                font-size: 2rem;
+            }
+
+            .image-section-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .image-section-two-col {
+                grid-template-columns: 1fr;
+            }
+
+            .image-section-three-col {
+                grid-template-columns: 1fr;
+            }
+
+            .image-section-grid img,
+            .image-section-three-col img {
+                height: auto;
+            }
+
+            .contact-section {
+                padding: 4rem 1.5rem;
+            }
+
+            .contact-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (min-width: 969px) and (max-width: 1400px) {
+            .area-card {
+                min-width: calc(50% - 1rem);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">nn design</div>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="#" data-page="home">Work</a></li>
+                <li><a href="#" data-page="contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <!-- About Section -->
+        <section class="about-section">
+            <div class="about-content">
+                <div class="about-image-container">
+                    <img src="img/otros/nn logo.png" 
+                         alt="Foto de perfil" 
+                         class="about-image">
+                </div>
+                <div class="about-text">
+                    <h2>About Me</h2>
+                    <p>
+                        Hi! I am a graphic designer passionate about creating visual pieces that connect brands with people. My approach combines aesthetics with strategy, leaning toward innovation and emerging aesthetic trends</p>
+                    <p>I work to build visual identities that are cohesive, memorable, professional, and purpose-driven</p>
+                    <p>
+                      I love creating social media assets, including image editing, Instagram posts, and video content tailored for platforms like YouTube and TikTok.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Areas Section -->
+        <section class="areas-section">
+            <h2 class="areas-title">Areas of Work</h2>
+            <div class="carousel-container">
+                <button class="carousel-btn prev" aria-label="Anterior">‹</button>
+                <div class="areas-carousel">
+                    <div class="areas-track">
+                        <div class="area-card">
+                            <h3>Branding</h3>
+                            <p>Development of complete visual identities that reflect the essence of each brand</p>
+                        </div>
+                        <div class="area-card">
+                            <h3>Social Media</h3>
+                            <p>Visual content for social media that captures attention, seeks to generate engagement and defines aesthetics</p>
+                        </div>
+                        <div class="area-card">
+                            <h3>Videos, Reels, Miniatures</h3>
+                            <p>Multimedia content for social media or various projects. Content for YouTube, Reels, shorts, TikTok Clips, and podcasts.</p>
+                        </div>
+                        <div class="area-card">
+                            <h3>Posters</h3>
+                            <p>Digital illustrations for various projects</p>
+                        </div>
+                        <div class="area-card">
+                            <h3>Visualizers</h3>
+                            <p>Animations and motion graphics for videos, presentations, and digital content</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-btn next" aria-label="Siguiente">›</button>
+            </div>
+        </section>
+
+        <!-- Work Section -->
+        <section class="work-section">
+            <h2 class="work-title">Work</h2>
+            <div class="work-grid">
+                <div class="project-card" data-project="Social-media">
+                    <img src="img/redes sociales/como.jpg" 
+                         alt="Social Media" 
+                         class="project-image">
+                    <div class="project-info">
+                        <h3 class="project-title">Social Media</h3>
+                        <p class="project-year">2026</p>
+                    </div>
+                </div>
+
+                <div class="project-card" data-project="Posters">
+                    <img src="img/posters/frank ocean.png" object-fit="cover"
+                         alt="Branding" 
+                         class="project-image">
+                    <div class="project-info">
+                        <h3 class="project-title">Posters</h3>
+                        <p class="project-year">2026</p>
+                    </div>
+                </div>
+
+                <div class="project-card" data-project="Branding">
+                    <img src="img/Branding/branding 2.png" object-fit="cover"
+                         alt="Posters" 
+                         class="project-image">
+                    <div class="project-info">
+                        <h3 class="project-title">Branding</h3>
+                        <p class="project-year">2026</p>
+                    </div>
+                </div>
+
+                <div class="project-card" data-project="Reels">
+                    <img src="img/reels/astronauta.gif" 
+                         alt="Reels and visualizers" 
+                         class="project-image">
+                    <div class="project-info">
+                        <h3 class="project-title">Reels</h3>
+                        <p class="project-year">2026</p>
+                    </div>
+                </div>
+
+                <div class="project-card" data-project="Visualizers">
+                    <img src="img/posters/titulo.png" 
+                         alt="Visualizers" 
+                         class="project-image">
+                    <div class="project-info">
+                        <h3 class="project-title">Visualizers</h3>
+                        <p class="project-year">2026</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+<!--Cada imagen dentro de los trabajos  -->
+    <!-- Project Detail Pages -->
+    <div id="Social-media" class="page">
+        <div class="project-detail">
+            <button class="back-btn">← Back to Work</button>
+            <div class="project-detail-header">
+                <h1 class="project-detail-title">Social Media</h1>
+            </div>
+            <div class="project-detail-images">
+                <!-- Full width hero images -->
+                <div class="image-section-full">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&h=600&fit=crop" alt="Album Cover 1">
+                </div>
+                
+                <!-- Grid of smaller images -->
+                <div class="image-section-ig">
+                    <img src="img/redes sociales/huracan.png" object-fit="cover"; alt="Album 2">
+                    <img src="img/redes sociales/Anderlecht.jpg" object-fit="cover"; alt="Album 3">
+                    <img src="img/redes sociales/lineup.jpg" object-fit="cover"; alt="Album 4">
+                </div>
+
+                <!-- Grid of smaller images -->
+                <div class="image-section-ig">
+                    <img src="img/redes sociales/celtic.jpg" object-fit="cover"; alt="Album 2">
+                    <img src="img/redes sociales/Piatri.jpg" pbject-fit="cover"; alt="Album 3">
+                    <img src="img/redes sociales/facundo campazzo.png" object-fit="cover"; alt="Album 4">
+                
+                </div><!-- Grid of smaller images -->
+                <div class="image-section-ig">
+                    <img src="img/redes sociales/pedri clasico.png" object-fit="cover"; alt="Album 2">
+                    <img src="img/redes sociales/sunderland matchday.png" object-fit="cover"; alt="Album 3">
+                    <img src="img/redes sociales/Mastantuono matchday.png" object-fit="cover"; alt="Album 4">
+                </div>
+                
+                <!-- Two column section -->
+                <div class="image-section-two-col">
+                    <img src="img/redes sociales/enzo fernandez.png" object-fit="cover"; alt="Album 10">
+                    <img src="img/redes sociales/michaeljordan.png" object-fit="cover"; alt="Album 11">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="Posters" class="page">
+        <div class="project-detail">
+            <button class="back-btn">← Back to Work</button>
+            <div class="project-detail-header">
+                <h1 class="project-detail-title">Posters</h1>
+                <p class="project-detail-subtitle">For artists and influencers</p>
+                <p class="project-detail-year">2026</p>
+            </div>
+            <div class="project-detail-images">
+                <!-- Grid layout like the collages reference image -->
+                <div class="image-section-grid">
+                    <img src="img/posters/macdemarco.png" object-fit="contain"; alt="Collage 1">
+                    <img src="img/posters/blues.png" object-fit="contain"; alt="Collage 2">
+                    <img src="img/posters/fred.jpg" object-fit="contain" alt="Collage 3">
+                    <img src="img/posters/turnstilebyn.png" alt="Collage 4">
+                    <img src="img/posters/miles davis.jpg" alt="Collage 5">
+                    <img src="img/posters/mac miller.png" alt="Collage 6">
+                    <img src="img/posters/liam.png" alt="Collage 7">
+                    <img src="img/posters/ed.png" alt="Collage 8">
+                </div>
+
+  <div class="image-section-ig">
+                    <img src="img/posters/jimypam.png" object-fit="cover"; alt="Album 2">
+                    <img src="img/posters/oasis.jpg" object-fit="cover"; alt="Album 3">
+                    <img src="img/posters/justin.png" object-fit="cover"; alt="Album 4">
+                </div>
+
+                <div class="image-section-grid">
+                    <img src="img/posters/dave grohl.png" object-fit="cover"; alt="Collage 7">
+                    <img src="img/posters/macdemarco2.jpg" object-fit="cover"; alt="Collage 8">
+                    <img src="img/posters/noah.png" object-fit="cover"; alt="Collage 9">
+                    <img src="img/posters/thestrokes.jpg" object-fit="cover"; alt="Collage 10">
+                    <img src="img/posters/red.jpg" object-fit="cover"; alt="Collage 11">
+                    <img src="img/posters/fugazi.jpg" object-fit="cover"; alt="Collage 12">
+                    <img src="img/posters/paramore.png" object-fit="cover"; alt="Collage 13">
+                    <img src="img/posters/tylerr.png" object-fit="cover"; alt="Collage 14">
+                    <img src="img/posters/terraplana.jpg" object-fit="cover"; alt="Collage 15">
+                    <img src="img/posters/jpop.png" object-fit="cover"; alt="Collage 16">
+                    <img src="img/posters/pulpfictioin.jpg" object-fit="cover"; alt="Collage 17">
+                    <img src="img/posters/know.png" object-fit="cover"; alt="Collage 18">
+                    <img src="img/posters/ye.png" object-fit="cover"; alt="Collage 19">
+                    <img src="img/posters/rock.png" object-fit="cover"; alt="Collage 20">
+                    <img src="img/posters/club.jpg" object-fit="cover"; alt="Collage 21">
+                    <img src="img/posters/the1975.jpg" object-fit="cover"; alt="Collage 22">
+                </div>
+
+                 <div class="image-section-ig">
+                    <img src="img/posters/gospel.jpg" object-fit="cover"; alt="Album 2">
+                    <img src="img/posters/Tyler The creator Lollapalooza poster.jpg" object-fit="cover"; alt="Album 3">
+                    <img src="img/posters/gospel2.jpg" object-fit="cover"; alt="Album 4">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="Branding" class="page">
+        <div class="project-detail">
+            <button class="back-btn">← Back to Work</button>
+            <div class="project-detail-header">
+                <h1 class="project-detail-title">Posters</h1>
+                <p class="project-detail-subtitle">Print & Digital Design</p>
+                <p class="project-detail-year">2026</p>
+            </div>
+
+                <div class="image-section-full">
+                    <img src="https://images.unsplash.com/photo-1499781350541-7783f6c6a0c8?w=1400&h=600&fit=crop" alt="Poster 7">
+                </div>
+
+                <div class="image-section-ig">
+                    <img src="img/Branding/branding 2.png" object-fit="cover"; alt="Album 2">
+                    <img src="img/Branding/cookies.png" object-fit="cover"; alt="Album 3">
+                    <img src="img/Branding/cookies2.png" object-fit="cover"; alt="Album 4">
+                </div>
+
+                <div class="image-section-ig">
+                    <img src="img/Branding/coffe.png" object-fit="cover"; alt="Album 2">
+                    <img src="img/Branding/mp3.png" object-fit="cover"; alt="Album 3">
+                    <img src="img/Branding/walkman.jpg" object-fit="cover"; alt="Album 4">
+                </div>
+
+               
+
+                <div class="image-section-ig">
+                    <img src="img/Branding/mocca.png" object-fit="cover"; alt="Album 2">
+                    <img src="img/Branding/butter.jpg" object-fit="cover"; alt="Album 3">
+                    <img src="img/Branding/pan.jpg" object-fit="cover"; alt="Album 4">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="Reels" class="page">
+        <div class="project-detail">
+            <button class="back-btn">← Back to Work</button>
+            <div class="project-detail-header">
+                <h1 class="project-detail-title">Reels Editing</h1>
+                <p class="project-detail-subtitle">Video & Motion Content</p>
+                <p class="project-detail-year">2026</p>
+            </div>
+            <div class="project-detail-images">
+                <div class="image-section-ig">
+                    <img src="img/Branding/branding 2.png" object-fit="cover"; alt="Album 2">
+                    <img src="img/Branding/cookies.png" object-fit="cover"; alt="Album 3">
+                    <img src="img/Branding/cookies2.png" object-fit="cover"; alt="Album 4">
+                </div>
+
+                <div class="image-section-three-col">
+                    <video autoplay muted loop playsinline>
+                        <source src="video1.mp4" type="video/mp4">
+                    </video>
+
+                    <video autoplay muted loop playsinline>
+                        <source src="video2.mp4" type="video/mp4">
+                    </video>
+
+                    <video autoplay muted loop playsinline>
+                         <source src="video3.mp4" type="video/mp4">
+                    </video>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="Visualizers" class="page">
+        <div class="project-detail">
+            <button class="back-btn">← Back to Work</button>
+            <div class="project-detail-header">
+                <h1 class="project-detail-title">Visualizers</h1>
+                <p class="project-detail-subtitle">Audio Visual Experiences</p>
+                <p class="project-detail-year">2026</p>
+            </div>
+            <div class="project-detail-images">
+               <div class="image-section-ig">
+                    <img src="img/Branding/branding2.png" object-fit="cover"; alt="Album 2">
+                    <img src="img/Branding/cookies.png" object-fit="cover"; alt="Album 3">
+                    <img src="img/Branding/cookies2.png" object-fit="cover"; alt="Album 4">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page">
+        <section class="contact-section">
+            <h2 class="contact-title">Contact</h2>
+            <p class="contact-description">
+                If you have a social media, business, brand or a project in mind, I would love to know more about your idea and work togheter...
+            </p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <strong>Email:</strong> <a href="mailto:tu@email.com">tu@email.com</a>
+                </div>
+            </div>
+
+            <div class="social-links">
+                <a href="https://instagram.com/tu_usuario" target="_blank" class="social-link">
+                    <div class="social-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </div>
+                    <span class="social-name">Instagram</span>
+                </a>
+
+                <a href="https://www.behance.net/santiagoale1" target="_blank" class="social-link">
+                    <div class="social-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M22 7h-7v-2h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H15.97c.13 3.211 3.483 3.312 4.588 2.029h3.168zm-7.686-4h4.965c-.105-1.547-1.136-2.219-2.477-2.219-1.466 0-2.277.768-2.488 2.219zm-9.574 6.988H0V5.021h6.953c5.476.081 5.58 5.444 2.72 6.906 3.461 1.26 3.577 8.061-3.207 8.061zM3 11h3.584c2.508 0 2.906-3-.312-3H3v3zm3.391 3H3v3.016h3.341c3.055 0 2.868-3.016.05-3.016z"/>
+                        </svg>
+                    </div>
+                    <span class="social-name">Behance</span>
+                </a>
+
+                <a href="https://linkedin.com/in/tu_usuario" target="_blank" class="social-link">
+                    <div class="social-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                            <rect x="2" y="9" width="4" height="12"></rect>
+                            <circle cx="4" cy="4" r="2"></circle>
+                        </svg>
+                    </div>
+                    <span class="social-name">LinkedIn</span>
+                </a>
+
+                <a href="https://x.com/nadesignn" target="_blank" class="social-link">
+                    <div class="social-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                    </div>
+                    <span class="social-name">Twitter</span>
+                </a>
+
+                <a href="https://pinterest.com/tu_usuario" target="_blank" class="social-link">
+                    <div class="social-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.627 0-12 5.372-12 12 0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146 1.124.347 2.317.535 3.554.535 6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/>
+                        </svg>
+                    </div>
+                    <span class="social-name">Pinterest</span>
+                </a>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>&copy; 2026 nn design - Graphic Design. All rights deserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Mobile Menu
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Page Navigation
+        function navigateToPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0, 0);
+            
+            // Close mobile menu
+            mobileMenuBtn.classList.remove('active');
+            navLinks.classList.remove('active');
+        }
+
+        // Nav links
+        document.querySelectorAll('[data-page]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                navigateToPage(link.dataset.page);
+            });
+        });
+
+        // Project cards
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('click', () => {
+                navigateToPage(card.dataset.project);
+            });
+        });
+
+        // Back buttons
+        document.querySelectorAll('.back-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                navigateToPage('home');
+            });
+        });
+
+        // Carousel
+        const track = document.querySelector('.areas-track');
+        const prevBtn = document.querySelector('.carousel-btn.prev');
+        const nextBtn = document.querySelector('.carousel-btn.next');
+        let currentIndex = 0;
+
+        function getCardsToShow() {
+            if (window.innerWidth >= 1400) return 3;
+            if (window.innerWidth >= 969) return 2;
+            return 1;
+        }
+
+        function updateCarousel() {
+            const cardsToShow = getCardsToShow();
+            const cardWidth = track.querySelector('.area-card').offsetWidth;
+            const gap = 32; // 2rem
+            const offset = -(currentIndex * (cardWidth + gap));
+            track.style.transform = `translateX(${offset}px)`;
+
+            const totalCards = track.querySelectorAll('.area-card').length;
+            prevBtn.style.opacity = currentIndex === 0 ? '0.3' : '1';
+            prevBtn.style.cursor = currentIndex === 0 ? 'default' : 'pointer';
+            nextBtn.style.opacity = currentIndex >= totalCards - cardsToShow ? '0.3' : '1';
+            nextBtn.style.cursor = currentIndex >= totalCards - cardsToShow ? 'default' : 'pointer';
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCarousel();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            const cardsToShow = getCardsToShow();
+            const totalCards = track.querySelectorAll('.area-card').length;
+            if (currentIndex < totalCards - cardsToShow) {
+                currentIndex++;
+                updateCarousel();
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            const cardsToShow = getCardsToShow();
+            const totalCards = track.querySelectorAll('.area-card').length;
+            if (currentIndex > totalCards - cardsToShow) {
+                currentIndex = Math.max(0, totalCards - cardsToShow);
+            }
+            updateCarousel();
+        });
+
+        updateCarousel();
+    </script>
+</body>
+</html>
